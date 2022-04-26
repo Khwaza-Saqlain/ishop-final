@@ -9,7 +9,7 @@ export default function IshopIndexComponent() {
   const [jewelery, setJewelery] = useState<number>(0);
   const [electronics, setElectronics] = useState<number>(0);
   const [menclothing, setMenclothing] = useState<number>(0);
-  const [womenclothing, setWomenclothing] = useState<number>(0);
+  const [womenclothing, setWomenclothing] = useState<number>(4);
 
   useEffect(() => {
     alert("component will mount");
