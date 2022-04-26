@@ -9,10 +9,9 @@ export default function IshopIndexComponent() {
   const [jewelery, setJewelery] = useState<number>(0);
   const [electronics, setElectronics] = useState<number>(0);
   const [menclothing, setMenclothing] = useState<number>(0);
-  const [womenclothing, setWomenclothing] = useState<number>(4);
+  const [womenclothing, setWomenclothing] = useState<number>(0);
 
   useEffect(() => {
-    alert("component will mount");
     axios.get("http://127.0.0.1:8080/products").then((res) => {
       setCategories(res.data); //this will set the response data into the setCategories.
       setProducts(res.data);
