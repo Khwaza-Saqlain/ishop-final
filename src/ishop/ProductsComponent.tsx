@@ -7,16 +7,35 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import CartItemsComponent from "./CartItemsComponent";
 
 export default function ProductsComponent() {
   const params = useParams();
   const [products, setProducts] = useState<any[]>([]);
+  const [open, setOpen] = useState(false);
+
+  // const AddToCartClick = (id: any) => {
+  //   alert("add clicked");
+  // };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     // alert("component mounted");
     axios.get(`http://127.0.0.1:8080/products/category/${params.category}`).then((res) => {
       setProducts(res.data);
     });
-  }, [params.category]); // this dependenty states that when the params.category will change then useEffect will fire up
+  }, [params.category]); // this dependenty states that when the params.category will change then useEffect will fire up each time
   return (
     <div>
       <h2>{params.category} Products</h2>
@@ -26,21 +45,38 @@ export default function ProductsComponent() {
             <Card style={{ width: "250px" }} className='m-2 p-2'>
               <p className='text-center bg-dark text-light'>$ {product.price}</p>
               <CardMedia component='img' height='180' image={product.image} alt={product.title} />
-              <CardContent style={{ height: "400px" }}>
-                <Typography variant='h6' component='div'>
+              <CardContent>
+                <Typography variant='h6' component='div' style={{ height: "200px" }}>
                   {product.title}
                 </Typography>
-                <Typography
-                  variant='body2'
-                  color='text.secondary'
-                  className='overflow-auto'
-                  style={{ height: "200px" }}
+                <Button onClick={handleClickOpen}>Description</Button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby='alert-dialog-title'
+                  aria-describedby='alert-dialog-description'
                 >
-                  {product.description}
-                </Typography>
+                  <DialogTitle id='alert-dialog-title'>{product.title}</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id='alert-dialog-description'>
+                      {product.description}
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button variant='contained' onClick={handleClose}>
+                      Ok
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </CardContent>
               <CardActions>
-                <Button variant='contained' className='w-100'>
+                <Button
+                  onClick={(e: any) => {
+                    <CartItemsComponent count={product.id} />;
+                  }}
+                  variant='contained'
+                  className='w-100'
+                >
                   <span className='bi bi-cart4'> Add to Cart</span>
                 </Button>
               </CardActions>

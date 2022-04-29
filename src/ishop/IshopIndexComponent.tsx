@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductsComponent from "./ProductsComponent";
+import CartItemsComponent from "./CartItemsComponent";
 
 export default function IshopIndexComponent() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -60,12 +61,16 @@ export default function IshopIndexComponent() {
                 </li>
               </ul>
             </div>
-            <div className='col-6'>
+            <div className='col-7'>
               <Routes>
                 <Route path='/products/:category' element={<ProductsComponent />}></Route>
               </Routes>
             </div>
-            <div className='col-3'></div>
+            <div className='col-2'>
+              <div className='m-2'>
+                <CartItemsComponent count={0} />
+              </div>
+            </div>
           </div>
         </section>
       </BrowserRouter>
