@@ -23,6 +23,9 @@ export default function ProductsComponent() {
   //   alert("add clicked");
   // };
 
+  const AddToCart=()=>{
+    
+  }
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,7 +38,7 @@ export default function ProductsComponent() {
     axios.get(`http://127.0.0.1:8080/products/category/${params.category}`).then((res) => {
       setProducts(res.data);
     });
-  }, [params.category]); // this dependenty states that when the params.category will change then useEffect will fire up each time
+  }, [params.category]); // this dependency states that when the params.category will change then useEffect will fire up each time
   return (
     <div>
       <h2>{params.category} Products</h2>
